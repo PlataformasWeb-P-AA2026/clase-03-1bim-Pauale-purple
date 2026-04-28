@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Instituciones Educativas</title>
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    </head>
+    <body>
+        <h1>Lista de Instituciones</h1>
+
+        <ul id="listaInstituciones"></ul>
+
+        <button id="cargar">Cargar información</button>
+        <button id="limpiar">Limpiar información</button>
+
+        <script>
+            $(document).ready(function () {
+                $("#cargar").click(function () {
+                    $.ajax({
+                        dataType: "json",
+                        url: "data_instituciones.json",
+                    }).then(function (data) {
+                        $("#listaInstituciones").empty();
+
+                        for (var i = 0; i < data.length; i++) {
+                            $("#listaInstituciones").append(
+                                "<li>" +
+                                    "<b>AMIE:</b> " +
+                                    data[i].AMIE +
+                                    " | " +
+                                    "<b>Nombre:</b> " +
+                                    data[i]["Nombre-Educativa"] +
+                                    " | " +
+                                    "<b>Provincia:</b> " +
+                                    data[i].Provincia +
+                                    " | " +
+                                    "<b>Cantón:</b> " +
+                                    data[i].Canton +
+                                    " | " +
+                                    "<b>Parroquia:</b> " +
+                                    data[i].Parroquia +
+                                    " | " +
+                                    "<b>Estudiantes:</b> " +
+                                    data[i].Numeroestudiantes +
+                                    "</li>",
+                            );
+                        }
+                    });
+                });
+
+                $("#limpiar").click(function () {
+                    $("#listaInstituciones").empty();
+                });
+            });
+        </script>
+    </body>
+</html>

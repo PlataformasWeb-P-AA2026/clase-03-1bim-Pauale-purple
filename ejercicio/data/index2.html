@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Instituciones Educativas</title>
+    </head>
+    <body>
+        <h1>Instituciones Educativas</h1>
+        <ul id="lista-instituciones"></ul>
+        <!-- Lista donde se insertarán los datos del JSON -->
+
+        <script>
+            // Obtiene la referencia al elemento <ul> del DOM
+            const lista = document.getElementById("lista-instituciones");
+
+            // Solicita el archivo JSON que está en la misma carpeta
+            fetch("data_instituciones.json")
+                // Convierte la respuesta HTTP a un objeto JavaScript
+                .then((response) => response.json())
+                .then((data) => {
+                    data.forEach((item) => {
+                        // Crea un elemento <li> para mostrar un registro
+                        const li = document.createElement("li");
+                        // Construye el texto con los 5 campos principales en orden
+                        li.innerHTML =
+                            "<strong>AMIE:</strong> " +
+                            item.AMIE +
+                            "<br><strong>Nombre-Educativa:</strong> " +
+                            item["Nombre-Educativa"] +
+                            "<br><strong>Provincia:</strong> " +
+                            item.Provincia +
+                            "<br><strong>Canton:</strong> " +
+                            item.Canton +
+                            "<br><strong>Parroquia:</strong> " +
+                            item.Parroquia;
+                        // Agrega el <li> dentro de la lista.
+                        lista.appendChild(li);
+                    });
+                })
+                .catch((error) => {
+                    const li = document.createElement("li");
+                    li.textContent = "Error al cargar el JSON: " + error;
+                    lista.appendChild(li);
+                });
+        </script>
+    </body>
+</html>
